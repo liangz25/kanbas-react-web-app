@@ -83,12 +83,12 @@ export default function Lab1() {
                     <br />
                     <img id="wd-starship"
                         width="400px"
-                        src="https://www.staradvertiser.com/wp-content/uploads/2021/08/web1_Starship-gap2.jpg" alt="Description of the image"
+                        src="https://www.staradvertiser.com/wp-content/uploads/2021/08/web1_Starship-gap2.jpg" alt="SpaceX Starship on a launch pad"
                     />
                     <br />
                     Loading a local image:
                     <br />
-                    <img id="wd-teslabot" src="images/teslabot.jpg" alt="Description of the image" height="200px" />
+                    <img id="wd-teslabot" src="images/teslabot.jpg" alt="Tesla Bot humanoid robot" height="200px" />
                 </div>
                 <div id="wd-forms">
                     <h4>Form Elements</h4>
