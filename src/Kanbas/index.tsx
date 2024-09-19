@@ -9,6 +9,7 @@ export default function Kanbas() {
             <h1>Kanbas</h1>
             <h1>Liang Zhen</h1>
             <h1>section2</h1>
+            <h1>https://github.com/liangz25/kanbas-react-web-app.git</h1>
             <table>
                 <tbody>
                     <tr>
