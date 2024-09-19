@@ -7,6 +7,8 @@ export default function Kanbas() {
     return (
         <div id="wd-kanbas">
             <h1>Kanbas</h1>
+            <h1>Liang Zhen</h1>
+            <h1>section2</h1>
             <table>
                 <tbody>
                     <tr>
