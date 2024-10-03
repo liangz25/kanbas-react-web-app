@@ -1,5 +1,7 @@
 import { FaPlus } from "react-icons/fa6";
 import GreenCheckmark from "./GreenCheckmark";
+import BsPlus from "./BsPlus";
+import NoSymbol from "./NoSymbol";
 export default function ModulesControls() {
     return (
         <div id="wd-modules-controls" className="text-nowrap">
@@ -21,6 +23,16 @@ export default function ModulesControls() {
                         <a id="wd-publish-modules-only-button" className="dropdown-item" href="#">
                             <GreenCheckmark />
                             Publish modules only</a>
+                    </li>
+                    <li>
+                    <a id="wd-unpublish-all-modules-and-items" className="dropdown-item" href="#">
+                            <NoSymbol />
+                            Unpublish all modules and items</a>
+                    </li>
+                    <li>
+                    <a id="wd-unpublish-modules-only" className="dropdown-item" href="#">
+                            <NoSymbol/>
+                            Unpublish modules only</a>
                     </li>
                     {/* Create two more items with IDs wd-unpublish-all-modules-and-items and
     wd-unpublish-modules-only with labels Unpublish all modules and items

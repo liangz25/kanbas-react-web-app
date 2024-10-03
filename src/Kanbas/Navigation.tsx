@@ -3,6 +3,9 @@ import { AiOutlineDashboard } from "react-icons/ai";
 import { IoCalendarOutline } from "react-icons/io5";
 import { LiaBookSolid, LiaCogSolid } from "react-icons/lia";
 import { FaInbox, FaRegCircleUser } from "react-icons/fa6";
+import { HiInboxArrowDown } from "react-icons/hi2";
+import { FaCalendarAlt } from "react-icons/fa";
+import { ImLab } from "react-icons/im";
 export default function KanbasNavigation() {
     return (
         <div id="wd-kanbas-navigation" style={{ width: 120 }} className="list-group rounded-0 position-fixed
@@ -28,9 +31,12 @@ export default function KanbasNavigation() {
                 <LiaBookSolid className="fs-1 text-danger" /><br />
                 Courses </Link>
 
-            <Link to="/Kanbas/Calendar" id="wd-calendar-link">Calendar</Link><br />
-            <Link to="/Kanbas/Inbox" id="wd-inbox-link">Inbox</Link><br />
-            <Link to="/Labs" id="wd-labs-link">Labs</Link><br />
+            <Link to="/Kanbas/Calendar" id="wd-calendar-link" className="list-group-item text-white
+                   bg-black text-center border-0"><FaCalendarAlt className="fs-1 text-danger" /><br />Calendar</Link>
+            <Link to="/Kanbas/Inbox" id="wd-inbox-link" className="list-group-item text-white
+                   bg-black text-center border-0"><HiInboxArrowDown className="fs-1 text-danger" /><br />Inbox</Link>
+            <Link to="/Labs" id="wd-labs-link" className="list-group-item text-white
+                   bg-black text-center border-0"><ImLab className="fs-1 text-danger" /><br />Labs</Link>
         </div>
     );
 }
