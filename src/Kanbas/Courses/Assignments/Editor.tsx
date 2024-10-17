@@ -1,9 +1,18 @@
+import ModulesControls from "../Modules/ModulesControls";
+import LessonControlButtons from "./LessonControlButtons";
+import { useParams } from "react-router";
+import * as db from "../../Database";
+import {BsGripVertical} from "react-icons/bs";
+import { useEffect, useState } from "react";
 export default function AssignmentEditor() {
+    const { cid } = useParams();
+  const assignment = db.assignments;
     return (
         <div id="wd-assignments-editor" className="mb-3">
-            <hr></hr><div className="mb-3">
-                <label htmlFor="r1" className="col-sm-2 col-form-label">Assignment Name</label>
-                <input id="wd-name" value="A1 - ENV + HTML" /><br /><br /></div>
+             {assignment.map((assignment) =>(<div className="mb-3">
+                <label htmlFor="r1" className="col-sm-2 col-form-label">{assignment.title}</label>
+                
+                <input id={assignment._id} value={assignment.course} /><br /><br /></div>))}
             <label htmlFor="r1" className="col-sm-2 col-form-label">
                 <div className="mb-3"> <label htmlFor="wd-description" className="col-form-label">Description</label>
                     <textarea id="wd-description" className="form-control">
