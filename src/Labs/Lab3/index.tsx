@@ -31,12 +31,23 @@ import VariableTypes from "./VariableTypes";
 import VariablesAndConstants from "./VariablesAndConstants";
 import Add from "./Add";
 import AddPathParameters from "./AddPathParameters";
+import { useSelector } from "react-redux";
 import PathParameters from "./PathParameters";
 export default function Lab3() {
+    const { todos } = useSelector((state: any) => state.todosReducer);
     console.log('Hello World!');
     return (
         <div id="wd-lab3">
             <h3>Lab 3</h3>
+            <ul className="list-group">
+                {todos.map((todo: any) => (
+                    <li className="list-group-item" key={todo.id}>
+                        {todo.title}
+                    </li>
+                ))}
+            </ul>
+            <hr />
+
             <VariablesAndConstants />
             <VariableTypes />
             <BooleanVariables />

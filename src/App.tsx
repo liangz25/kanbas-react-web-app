@@ -1,4 +1,6 @@
 import React from 'react';
+import store from "./Kanbas/store";
+import { Provider } from "react-redux";
 
 import './App.css';
 import Labs from './Labs';
@@ -9,6 +11,7 @@ function App() {
 
 
     <HashRouter>
+      <Provider store={store}>
       <div>
         <Link to="/Labs">Labs</Link> | <Link to="/Labs/Lab1">Lab1</Link> |
         <Link to="/Labs/Lab2">Lab2</Link> | <Link to="/Labs/Lab3">Lab3</Link>| <Link to="/Kanbas">Kanbas</Link>
@@ -20,6 +23,7 @@ function App() {
 
         </Routes>
       </div>
+      </Provider>
     </HashRouter>
 
   );

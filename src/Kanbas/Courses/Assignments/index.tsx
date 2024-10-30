@@ -8,7 +8,7 @@ export default function Assignments() {
   const assignment = db.assignments;
     return (
         <div id="wd-assignments">
-            <ModulesControls /><br /><br /><br /><br />
+            {/* <ModulesControls /><br /><br /><br /><br /> */}
             
             <input id="wd-search-assignment"
                 placeholder="Search for Assignments" />
