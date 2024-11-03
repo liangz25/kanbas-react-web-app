@@ -1,11 +1,12 @@
 import ModulesControls from "../Modules/ModulesControls";
 import LessonControlButtons from "./LessonControlButtons";
 import { useParams } from "react-router";
+import React, { useState } from "react";
 import * as db from "../../Database";
 import {BsGripVertical} from "react-icons/bs";
 export default function Assignments() {
     const { cid } = useParams();
-  const assignment = db.assignments;
+  const [assignment,setAssignment] = useState<any[]>(db.assignments);
     return (
         <div id="wd-assignments">
             {/* <ModulesControls /><br /><br /><br /><br /> */}
