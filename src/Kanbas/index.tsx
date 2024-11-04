@@ -37,16 +37,17 @@ export default function Kanbas() {
     };
     return (
         <div id="wd-kanbas">
-            <h1>Kanbas</h1>
+            {/* <h1>Kanbas</h1>
             <h1>Liang Zhen</h1>
             <h1>section2</h1>
-            <h1>https://github.com/liangz25/kanbas-react-web-app.git</h1>
+            <h1>https://github.com/liangz25/kanbas-react-web-app.git</h1> */}
             <KanbasNavigation />
             <div className="wd-main-content-offset p-3">
                 <Routes>
                     <Route path="/" element={<Navigate to="Account" />} />
                     <Route path="/Account/*" element={<Account />} />
-                    <Route path="/Dashboard" element={<ProtectedRoute><Dashboard courses={courses}
+                    <Route path="/Dashboard" element={
+                        <ProtectedRoute><Dashboard courses={courses}
               course={course}
               setCourse={setCourse}
               addNewCourse={addNewCourse}
