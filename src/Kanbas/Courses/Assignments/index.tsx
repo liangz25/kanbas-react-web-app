@@ -24,18 +24,15 @@ export default function Assignments() {
         setAssignmentName("");
     };
     const removeAssignment = (assignmentId: string) => {
-        // const obj ={
-        // assignment.filter((m) => m._id !== assignmentId)};
         dispatch(deleteAssignment(assignmentId));
         setAssignmentName("")
     };
     const edit2Assignment = (assignmentId: string) => {
         dispatch(editAssignment(assignmentId))
-        // setAssignment(assignment.map((m) => (m._id === assignmentId ? { ...m, editing: true } : m)));
+        
     };
     const saveAssignment = (assignment: any) => {
         dispatch(updateAssignment(assignment))
-        // setAssignment(assignment.map((m: { _id: any; }) => (m._id === assignment._id? assignment : m)));
     };
 
 

@@ -7,6 +7,9 @@ interface Assignment {
     lessons: any[];
     editing?: boolean;
 }
+interface AssignmentState {
+    assignments: Assignment[];
+}
 
 const initialState = {
     assignments: assignments,

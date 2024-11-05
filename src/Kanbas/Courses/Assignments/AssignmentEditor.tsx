@@ -1,6 +1,12 @@
+import { useDispatch } from "react-redux";
+import { useNavigate, useParams } from "react-router";
+
 export default function AssignmentEditor({ dialogTitle, assignmentName, setAssignmentName, addAssignment }:
   { dialogTitle: string; assignmentName: string; setAssignmentName: (name: string) => void; addAssignment: () => void; }) {
-
+    const { assignmentId } = useParams();
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    
   return (
     <div id="wd-add-module-dialog" className="modal fade" data-bs-backdrop="static" data-bs-keyboard="false">
       <div className="modal-dialog">
