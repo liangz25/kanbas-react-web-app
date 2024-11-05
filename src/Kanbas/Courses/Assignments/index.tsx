@@ -23,14 +23,19 @@ export default function Assignments() {
         dispatch(addAssignment(obj));
         setAssignmentName("");
     };
-    const deleteAssignment = (assignmentId: string) => {
-        setAssignment(assignment.filter((m) => m._id !== assignmentId));
+    const removeAssignment = (assignmentId: string) => {
+        // const obj ={
+        // assignment.filter((m) => m._id !== assignmentId)};
+        dispatch(deleteAssignment(assignmentId));
+        setAssignmentName("")
     };
-    const editAssignment = (assignmentId: string) => {
-        setAssignment(assignment.map((m) => (m._id === assignmentId ? { ...m, editing: true } : m)));
+    const edit2Assignment = (assignmentId: string) => {
+        dispatch(editAssignment(assignmentId))
+        // setAssignment(assignment.map((m) => (m._id === assignmentId ? { ...m, editing: true } : m)));
     };
-    const updateAssignment = (assignment: any) => {
-        setAssignment(assignment.map((m: { _id: any; }) => (m._id === assignment._id? assignment : m)));
+    const saveAssignment = (assignment: any) => {
+        dispatch(updateAssignment(assignment))
+        // setAssignment(assignment.map((m: { _id: any; }) => (m._id === assignment._id? assignment : m)));
     };
 
 
@@ -48,7 +53,6 @@ export default function Assignments() {
             <div className="wd-title p-3 ps-2 bg-secondary">
                 <h3 id="wd-assignments-title"><BsGripVertical className="me-2 fs-3" />
                     ASSIGNMENTS 40% of Total
-
                 </h3></div>
             <ul id="wd-assignment-list" className="list-group rounded-0">
                 {assignments && assignments.length > 0 ? (
@@ -60,17 +64,17 @@ export default function Assignments() {
                                     {!assignment.edit &&assignment.title}
                                     { assignment.edit && (
         <input className="form-control w-50 d-inline-block"
-               onChange={(e) => updateAssignment({ ...assignment, name: e.target.value })}
+               onChange={(e) => setAssignment({ ...assignment, name: e.target.value })}
                onKeyDown={(e) => {
                  if (e.key === "Enter") {
-                   updateAssignment({ ...assignment, editing: false });
+                   saveAssignment({ ...assignment, editing: false });
                  }
                }}
                defaultValue={addAssignment.name}/>
       )}
                                     </span>
                             </a>
-                            <LessonControlButtons assignmentId={assignment._id} deleteAssignment={deleteAssignment} editAssignment={editAssignment} /><button>+</button>
+                            <LessonControlButtons assignmentId={assignment._id} deleteAssignment={removeAssignment} editAssignment={edit2Assignment} /><button>+</button>
 
                         </div>
                     </li>

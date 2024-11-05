@@ -2,16 +2,41 @@ import ModulesControls from "../Modules/ModulesControls";
 import LessonControlButtons from "./LessonControlButtons";
 import { useParams } from "react-router";
 import * as db from "../../Database";
-import {BsGripVertical} from "react-icons/bs";
+import { BsGripVertical } from "react-icons/bs";
 import { useEffect, useState } from "react";
+import { addAssignment, editAssignment, updateAssignment, deleteAssignment }
+    from "./reducer";
+import { useSelector, useDispatch } from "react-redux";
 export default function AssignmentEditor() {
     const { cid } = useParams();
-  const assignment = db.assignments;
+    const [assignmentList, setAssignmentList] = useState<any[]>(db.assignments);
+    const [editingId, setEditingId] = useState<string | null>(null);
+    const assignments = useSelector((state: any) => state.assignmentReducer.assignments);
+    const dispatch = useDispatch();
+    const edit2Assignment = (assignmentId: string) => {
+        setEditingId(assignmentId);
+    };
+
+    const saveAssignment = (assignment: any) => {
+        dispatch(updateAssignment(assignment));
+        setEditingId(null); // Exit edit mode
+    };
+
+    const handleAssignmentChange = (assignmentId: string, field: string, value: any) => {
+        setAssignmentList(prevAssignments =>
+            prevAssignments.map(a => 
+                a._id === assignmentId ? { ...a, [field]: value } : a
+            )
+        );
+    };
+
+
+
     return (
         <div id="wd-assignments-editor" className="mb-3">
-             {assignment.map((assignment) =>(<div className="mb-3">
-                <label htmlFor="r1" className="col-sm-2 col-form-label">{assignment.title}</label>
+            {assignmentList.map((assignment) => (<div className="mb-3">
                 
+                <label htmlFor="r1" className="col-sm-2 col-form-label">{assignment.title}</label>
                 <input id={assignment._id} value={assignment.course} /><br /><br /></div>))}
             <label htmlFor="r1" className="col-sm-2 col-form-label">
                 <div className="mb-3"> <label htmlFor="wd-description" className="col-form-label">Description</label>
@@ -19,10 +44,7 @@ export default function AssignmentEditor() {
                         The assignment is available online Submit a link to the landing page of
                     </textarea></div></label>
             <br />
-
-
             <table>
-
                 <tr>
                     <td align="right" valign="top">
                         <label htmlFor="wd-points" className="col-form-label">Points</label>
@@ -38,7 +60,6 @@ export default function AssignmentEditor() {
                             <option value="Assignments">Assignments</option>
                         </select>
                     </td>
-
                     <td align="right" valign="top">
                         <label htmlFor="wd-display-grade-as" className="col-form-label"> Display grade as: </label><br />
                         <select id="wd-display-grade-as" className="form-select">
@@ -54,28 +75,28 @@ export default function AssignmentEditor() {
                         </select>
                     </td>
                     <div className="mb-3">
-                <label>Online Entry Options</label>
-                <div className="form-check">
-                    <input type="checkbox" className="form-check-input" id="wd-text-entry" />
-                    <label htmlFor="wd-text-entry" className="form-check-label">Text Entry</label>
-                </div>
-                <div className="form-check">
-                    <input type="checkbox" className="form-check-input" id="wd-website-url" />
-                    <label htmlFor="wd-website-url" className="form-check-label">Website URL</label>
-                </div>
-                <div className="form-check">
-                    <input type="checkbox" className="form-check-input" id="wd-media-recordings" />
-                    <label htmlFor="wd-media-recordings" className="form-check-label">Media Recordings</label>
-                </div>
-                <div className="form-check">
-                    <input type="checkbox" className="form-check-input" id="wd-student-annotation" />
-                    <label htmlFor="wd-student-annotation" className="form-check-label">Student Annotation</label>
-                </div>
-                <div className="form-check">
-                    <input type="checkbox" className="form-check-input" id="wd-file-upload" />
-                    <label htmlFor="wd-file-upload" className="form-check-label">File Uploads</label>
-                </div>
-            </div>
+                        <label>Online Entry Options</label>
+                        <div className="form-check">
+                            <input type="checkbox" className="form-check-input" id="wd-text-entry" />
+                            <label htmlFor="wd-text-entry" className="form-check-label">Text Entry</label>
+                        </div>
+                        <div className="form-check">
+                            <input type="checkbox" className="form-check-input" id="wd-website-url" />
+                            <label htmlFor="wd-website-url" className="form-check-label">Website URL</label>
+                        </div>
+                        <div className="form-check">
+                            <input type="checkbox" className="form-check-input" id="wd-media-recordings" />
+                            <label htmlFor="wd-media-recordings" className="form-check-label">Media Recordings</label>
+                        </div>
+                        <div className="form-check">
+                            <input type="checkbox" className="form-check-input" id="wd-student-annotation" />
+                            <label htmlFor="wd-student-annotation" className="form-check-label">Student Annotation</label>
+                        </div>
+                        <div className="form-check">
+                            <input type="checkbox" className="form-check-input" id="wd-file-upload" />
+                            <label htmlFor="wd-file-upload" className="form-check-label">File Uploads</label>
+                        </div>
+                    </div>
                 </tr>
                 <tr><div className="mb-3">
                     <td align="right" valign="top">
@@ -96,24 +117,28 @@ export default function AssignmentEditor() {
                             <input type="date"
                                 id="wd-available-from" className="form-control"
                                 value="2024-05-6" /><br /></div>
-                                <div className="col-md-4">
-                        <label htmlFor="wd-available-until"className="col-form-label"> Until: </label>
-                        <input type="date"
-                            id="wd-available-until"className="form-control"
-                            value="2024-05-20" /><br /></div>
+                        <div className="col-md-4">
+                            <label htmlFor="wd-available-until" className="col-form-label"> Until: </label>
+                            <input type="date"
+                                id="wd-available-until" className="form-control"
+                                value="2024-05-20" /><br /></div>
                     </td></div>
                 </tr>
 
                 <hr></hr>
                 <tr>
-
+                <button onClick={() => edit2Assignment(assignments._id)}>
+                        Edit
+                    </button>
                     <button id="wd-name" onClick={() => alert("Life is Good!")} type="button">
                         Cancel
                     </button>
 
-                    <button id="wd-name" onClick={() => alert("Life is Good!")} type="button">
-                        Save
-                    </button>
+                    {editingId === assignments._id && (
+                        <button onClick={() => saveAssignment(assignments)}>
+                            Save
+                        </button>
+                    )}
 
                 </tr>
             </table>

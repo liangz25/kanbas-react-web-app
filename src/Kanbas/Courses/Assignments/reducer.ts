@@ -1,5 +1,13 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { assignments, modules } from "../../Database";
+interface Assignment {
+    _id: string;
+    title: string;
+    course: string;
+    lessons: any[];
+    editing?: boolean;
+}
+
 const initialState = {
     assignments: assignments,
 };
@@ -17,9 +25,11 @@ const assignmentsSlice = createSlice({
             state.assignments = [...state.assignments, newAssignment] as any;
             console.log(state.assignments);
         },
+        
         deleteAssignment: (state, { payload: assignmentId }) => {
             state.assignments = state.assignments.filter(
-                (m: any) => m._id !==assignmentId);
+                (assignment) => assignment._id !== assignmentId
+            );
         },
         updateAssignment: (state, { payload: assignment }) => {
             state.assignments = state.assignments.map((m: any) =>
