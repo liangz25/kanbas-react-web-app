@@ -71,7 +71,7 @@ export default function Dashboard(
                             <div key={course._id} className="col" style={{ width: "300px" }}>
                                 <div className="card rounded-3 overflow-hidden">
                                     <Link className="wd-dashboard-course-link text-decoration-none text-dark"
-                                        to="/Kanbas/Courses/${1234}/Home">
+                                        to={`/Kanbas/Courses/${course._id}/Home`}>
                                         <img src="/images/reactjs.jpg" width="100%" height={160} />
                                         <div className="card-body">
                                             <h5 className="wd-dashboard-course-title card-title">

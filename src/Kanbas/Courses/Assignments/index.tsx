@@ -6,15 +6,21 @@ import * as db from "../../Database";
 import { BsGripVertical } from "react-icons/bs";
 import AssignmentEditor from "./AssignmentEditor";
 import AssignmentControls from "./AssignmentControls";
+import { addAssignment, editAssignment, updateAssignment, deleteAssignment }
+  from "./reducer";
+import { useSelector, useDispatch } from "react-redux";
 export default function Assignments() {
     const { cid } = useParams();
     const [assignment, setAssignment] = useState<any[]>(db.assignments);
     const [assignmentName, setAssignmentName] = useState("");
-    const addAssignment = () => {
-        setAssignment([...assignment, {
+    const assignments  = useSelector((state: any) => state.assignmentReducer.assignments);
+  const dispatch = useDispatch();
+    const addAssignmentHandler = () => {
+        const obj = {
             _id: new Date().getTime().toString(),
-            name: setAssignmentName, course: cid, lessons: []
-        }]);
+            title: assignmentName, course: cid, lessons: []
+        };
+        dispatch(addAssignment(obj));
         setAssignmentName("");
     };
     const deleteAssignment = (assignmentId: string) => {
@@ -31,7 +37,7 @@ export default function Assignments() {
 
     return (
         <div id="wd-assignments">
-            <AssignmentControls setAssignment={setAssignmentName} assignmentName={assignmentName} addAssignment={addAssignment} />
+            <AssignmentControls setAssignment={setAssignmentName} assignmentName={assignmentName} addAssignment={addAssignmentHandler} />
 
            
 
@@ -45,8 +51,8 @@ export default function Assignments() {
 
                 </h3></div>
             <ul id="wd-assignment-list" className="list-group rounded-0">
-                {assignment.length > 0 ? (
-                    assignment.map((assignment: any) => (<li key={assignment._id} className="wd-module list-group-item p-0 mb-5 fs-5 border-gray">
+                {assignments && assignments.length > 0 ? (
+                    assignments.map((assignment: any) => (<li key={assignment._id} className="wd-module list-group-item p-0 mb-5 fs-5 border-gray">
                         <div className="wd-content-item list-group-item p-3 ps-1">
                             <BsGripVertical className="me-2 fs-3" />
                             <a className="wd-assignment-link" href={`#/Kanbas/Courses/${cid}/Assignments/${assignment}`}>
