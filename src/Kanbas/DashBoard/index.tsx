@@ -1,7 +1,10 @@
 import { Link } from "react-router-dom";
 import React, { useState } from "react";
-import * as db from "./Database";
+import * as db from "../Database";
 import { useSelector } from "react-redux";
+import { addEnrollment, deleteEnrollment } from "../Enrollment/reducer";
+
+
 export default function Dashboard(
     {
         }: {
@@ -10,7 +13,7 @@ export default function Dashboard(
             updateCourse: () => void;
         }
 ) {
-
+    const [showEnrollment, setEnrollment] = useState(true);
     const [courses, setCourses] = useState<any[]>(db.courses);
     const { currentUser } = useSelector((state: any) => state.accountReducer);
     const { enrollments } = db;
@@ -72,7 +75,7 @@ export default function Dashboard(
                                 <div className="card rounded-3 overflow-hidden">
                                     <Link className="wd-dashboard-course-link text-decoration-none text-dark"
                                         to={`/Kanbas/Courses/${course._id}/Home`}>
-                                        <img src="/images/reactjs.jpg" width="100%" height={160} />
+                                        <img src={course.photo} width="100%" height={160} />
                                         <div className="card-body">
                                             <h5 className="wd-dashboard-course-title card-title">
                                                 {course.name}
@@ -96,9 +99,7 @@ export default function Dashboard(
                                                 className="btn btn-warning me-2 float-end" >
                                                 Edit
                                             </button>
-
-                                            
-
+                                    
 
                                         </div>
                                     </Link>

@@ -20,7 +20,7 @@ export default function CoursesNavigation() {
 ];
   return (
     
-    <div id="wd-courses-navigation" className="">
+    <div id="wd-courses-navigation" className="wd list-group fs-5 rounded-0">
      
       {links.map((link) => (
         <Link
