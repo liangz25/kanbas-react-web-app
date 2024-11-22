@@ -61,7 +61,7 @@ export default function TOC() {
             </li>
             <li className="nav-item">
                 <a id="wd-k" href="https://kanbas-node-server-app11-156d0e1da7c5.herokuapp.com" className="nav-link">
-                    My HeroKu Link
+                    My HeroKu link
                 </a>
                 
             </li>
