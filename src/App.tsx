@@ -1,7 +1,7 @@
 import React from 'react';
 import store from "./Kanbas/store";
 import { Provider } from "react-redux";
-
+import provider from "react-redux";
 import './App.css';
 import Labs from './Labs';
 import Kanbas from './Kanbas';
