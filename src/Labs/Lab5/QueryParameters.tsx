@@ -22,6 +22,14 @@ return(<div id="wd-query-parameters">
         href={`${REMOTE_SERVER}/lab5/calculator?operation=subtract&a=${a}&b=${b}`}>
             Subtract {a} - {b}
         </a>
+        <a id="wd-query-parameter-subtract"
+        href={`${REMOTE_SERVER}/lab5/calculator?operation=multiply&a=${a}&b=${b}`}>
+            Multiply {a} * {b}
+        </a>
+        <a id="wd-query-parameter-subtract"
+        href={`${REMOTE_SERVER}/lab5/calculator?operation=divide&a=${a}&b=${b}`}>
+            Divided {a} / {b}
+        </a>
     {/* create additional links to test multiply and divide. use IDs starting with wd-query-parameter- */}
 
     <hr />
