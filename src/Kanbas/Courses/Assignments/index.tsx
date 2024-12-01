@@ -1,12 +1,14 @@
 import ModulesControls from "../Modules/ModulesControls";
 import LessonControlButtons from "./LessonControlButtons";
 import { useParams } from "react-router";
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import * as db from "../../Database";
+import * as coursesClient from "../client";
 import { BsGripVertical } from "react-icons/bs";
 import AssignmentEditor from "./AssignmentEditor";
 import AssignmentControls from "./AssignmentControls";
-import { addAssignment, editAssignment, updateAssignment, deleteAssignment }
+import * as assignmentClient from "./client";
+import { setAssignments,addAssignment, editAssignment, updateAssignment, deleteAssignment }
   from "./reducer";
 import { useSelector, useDispatch } from "react-redux";
 export default function Assignments() {
@@ -15,6 +17,26 @@ export default function Assignments() {
     const [assignmentName, setAssignmentName] = useState("");
     const assignments  = useSelector((state: any) => state.assignmentReducer.assignments);
   const dispatch = useDispatch();
+  const saveAssignment = async (assignment: any) => {
+    await assignmentClient.updateAssignment(assignment);
+    dispatch(updateAssignment(assignment));
+  };
+
+  const fetchAssignments = async () => {
+    const assignments = await coursesClient.findAssignmentsForCourse(cid as string);
+    dispatch(setAssignments(assignment));
+  };
+  useEffect(() => {
+    fetchAssignments();
+  }, []);
+  const createAssignmentForCourse = async () => {
+    if (!cid) return;
+    const newAssignment = { name: assignmentName, course: cid };
+    const assignment = await coursesClient.createAssignmentForCourse(cid, newAssignment);
+    dispatch(addAssignment(assignment));
+  };
+
+
     const addAssignmentHandler = () => {
         const obj = {
             _id: new Date().getTime().toString(),
@@ -23,23 +45,27 @@ export default function Assignments() {
         dispatch(addAssignment(obj));
         setAssignmentName("");
     };
-    const removeAssignment = (assignmentId: string) => {
-        dispatch(deleteAssignment(assignmentId));
-        setAssignmentName("")
-    };
+    // const removeAssignment = (assignmentId: string) => {
+    //     dispatch(deleteAssignment(assignmentId));
+    //     setAssignmentName("")
+    // };
     const edit2Assignment = (assignmentId: string) => {
         dispatch(editAssignment(assignmentId))
         
     };
-    const saveAssignment = (assignment: any) => {
-        dispatch(updateAssignment(assignment))
-    };
+    // const saveAssignment = (assignment: any) => {
+    //     dispatch(updateAssignment(assignment))
+    // };
 
-
+    const removeAssignment = async (assignmentId: string) => {
+        await assignmentClient.deleteAssignment(assignmentId);
+        dispatch(deleteAssignment(assignmentId));
+      };
+    
 
     return (
         <div id="wd-assignments">
-            <AssignmentControls setAssignment={setAssignmentName} assignmentName={assignmentName} addAssignment={addAssignmentHandler} />
+            <AssignmentControls setAssignment={setAssignmentName} assignmentName={assignmentName} addAssignment={createAssignmentForCourse} />
 
            
 
@@ -71,7 +97,7 @@ export default function Assignments() {
       )}
                                     </span>
                             </a>
-                            <LessonControlButtons assignmentId={assignment._id} deleteAssignment={removeAssignment} editAssignment={edit2Assignment} /><button>+</button>
+                            <LessonControlButtons assignmentId={assignment._id} deleteAssignment={(assignmentId) => removeAssignment(assignmentId)} editAssignment={edit2Assignment} /><button>+</button>
 
                         </div>
                     </li>
