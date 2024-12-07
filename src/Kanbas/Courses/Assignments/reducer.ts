@@ -23,15 +23,18 @@ const assignmentsSlice = createSlice({
         },        
       
         addAssignment: (state, { payload: assignment }) => {
-            const newAssignment: any = {
+            const newAssignment: Assignment = {
                 _id: new Date().getTime().toString(),
                 lessons: [],
-                title: assignment.title,
-                course: assignment.course,
+                title: assignment.title || "Untitled Assignment", // 确保有标题
+                course: assignment.course || "Unknown Course", // 确保有课程
+                editing: false, // 添加默认的编辑状态
             };
-            state.assignments = [...state.assignments, newAssignment] as any;
-            console.log(state.assignments);
+            state.assignments.push(newAssignment); // 添加到 assignments 列表
+            console.log("New assignment added:", newAssignment); // 调试日志
         },
+        
+        
         
         deleteAssignment: (state, { payload: assignmentId }) => {
             state.assignments = state.assignments.filter(

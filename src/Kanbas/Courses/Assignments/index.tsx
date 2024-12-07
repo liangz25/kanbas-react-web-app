@@ -29,12 +29,17 @@ export default function Assignments() {
   useEffect(() => {
     fetchAssignments();
   }, []);
-  const createAssignmentForCourse = async () => {
-    if (!cid) return;
-    const newAssignment = { name: assignmentName, course: cid };
-    const assignment = await coursesClient.createAssignmentForCourse(cid, newAssignment);
-    dispatch(addAssignment(assignment));
-  };
+  const createAssignmentForCourse = () => {
+    if (!assignmentName.trim()) return; // 避免空标题
+    const newAssignment = {
+        title: assignmentName,
+        course: cid, // 使用实际课程 ID
+    };
+    dispatch(addAssignment(newAssignment)); // 派发 addAssignment 动作
+    setAssignmentName(""); // 清空输入框
+    console.log("Added assignment:", newAssignment); // 调试日志
+};
+
 
 
     const addAssignmentHandler = () => {
