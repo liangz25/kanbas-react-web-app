@@ -24,7 +24,7 @@ export default function Assignments() {
 
   const fetchAssignments = async () => {
     const assignments = await coursesClient.findAssignmentsForCourse(cid as string);
-    dispatch(setAssignments(assignment));
+    dispatch(setAssignments(assignments));
   };
   useEffect(() => {
     fetchAssignments();
@@ -87,13 +87,13 @@ export default function Assignments() {
                                     {!assignment.edit &&assignment.title}
                                     { assignment.edit && (
         <input className="form-control w-50 d-inline-block"
-               onChange={(e) => setAssignment({ ...assignment, name: e.target.value })}
+               onChange={(e) => setAssignment({ ...assignment, title: e.target.value })}
                onKeyDown={(e) => {
                  if (e.key === "Enter") {
                    saveAssignment({ ...assignment, editing: false });
                  }
                }}
-               defaultValue={addAssignment.name}/>
+               defaultValue={assignment.title}/>
       )}
                                     </span>
                             </a>

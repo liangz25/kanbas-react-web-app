@@ -82,6 +82,23 @@ export default function Kanbas() {
         }
     }, [currentUser, enrolling]);
 
+    const updateEnrollment = async (courseId: string, enrolled: boolean) => {
+        if (enrolled) {
+            await userClient.enrollIntoCourse(currentUser._id, courseId);
+        } else {
+            await userClient.unenrollFromCourse(currentUser._id, courseId);
+        }
+        setCourses(
+            courses.map((course) => {
+                if (course._id === courseId) {
+                    return { ...course, enrolled: enrolled };
+                } else {
+                    return course;
+                }
+            })
+        );
+    };
+
     return (
         <Session>
             <div id="wd-kanbas">
@@ -102,7 +119,8 @@ export default function Kanbas() {
                                 deleteCourse={deleteCourse}
                                 updateCourse={updateCourse}
                                 enrolling={enrolling} setEnrolling={setEnrolling}
-                                 /></ProtectedRoute>} />
+                                updateEnrollment={updateEnrollment}
+                            /></ProtectedRoute>} />
                         <Route path="/Courses/:cid/*" element={<ProtectedRoute><Courses courses={courses} /></ProtectedRoute>} />
                         <Route path="/Calendar" element={<h1>Calendar</h1>} />
                         <Route path="/Inbox" element={<h1>Inbox</h1>} />

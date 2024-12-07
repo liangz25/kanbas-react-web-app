@@ -27,7 +27,7 @@ const assignmentsSlice = createSlice({
                 _id: new Date().getTime().toString(),
                 lessons: [],
                 title: assignment.title,
-                course: assignment.title,
+                course: assignment.course,
             };
             state.assignments = [...state.assignments, newAssignment] as any;
             console.log(state.assignments);
@@ -40,14 +40,17 @@ const assignmentsSlice = createSlice({
         },
         updateAssignment: (state, { payload: assignment }) => {
             state.assignments = state.assignments.map((m: any) =>
-                m._id === assignment._id ? module : m
+                m._id === assignment._id ? assignment : m
             ) as any;
         },
         editAssignment: (state, { payload: assignmentId }) => {
-            state.assignments = state.assignments.map((m: any) =>
-                m._id === assignmentId ? { ...m, editing: true } : m
-            ) as any;
+            state.assignments = state.assignments.map((m) =>
+                m._id === assignmentId
+                    ? { ...m, editing: true }
+                    : { ...m, editing: false }
+            );
         },
+        
     },
 });
 export const { addAssignment, deleteAssignment, updateAssignment, editAssignment,setAssignments } =

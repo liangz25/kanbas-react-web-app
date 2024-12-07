@@ -7,7 +7,7 @@ import { addEnrollment, deleteEnrollment } from "../Enrollment/reducer";
 
 export default function Dashboard({
     courses, course, setCourse, addNewCourse, deleteCourse, updateCourse,
-    enrolling, setEnrolling,
+    enrolling, setEnrolling, updateEnrollment
 }: {
     courses: any[];
     course: any;
@@ -17,6 +17,7 @@ export default function Dashboard({
     updateCourse: () => void;
     enrolling: boolean;
     setEnrolling: (enrolling: boolean) => void;
+    updateEnrollment: (courseId: string, enrolled: boolean) => void
 }) {
     const { currentUser } = useSelector((state: any) => state.accountReducer);
     const { enrollments } = db;
@@ -37,6 +38,7 @@ export default function Dashboard({
                 <button className="btn btn-warning float-end me-2" onClick={updateCourse} id="wd-update-course-click">
                     Update
                 </button>
+                
             </h5>
             <br />
             <input
@@ -44,13 +46,7 @@ export default function Dashboard({
                 className="form-control mb-2"
                 onChange={(e) => setCourse({ ...course, name: e.target.value })}
             />
-            {enrolling && (
-                <button
-                    className={`btn ${course.enrolled ? "btn-danger" : "btn-success"} float-end`}
-                >
-                    {course.enrolled ? "Unenroll" : "Enroll"}
-                </button>
-            )}
+            
             <textarea
                 value={course.description}
                 className="form-control"
@@ -101,6 +97,17 @@ export default function Dashboard({
                                         >
                                             Edit
                                         </button>
+                                        {enrolling && (
+                <button
+                onClick={(event) => {
+                    event.preventDefault();
+                    updateEnrollment(course._id, !course.enrolled);
+                  }}
+                    className={`btn ${course.enrolled ? "btn-danger" : "btn-success"} float-end`}
+                >
+                    {course.enrolled ? "Unenroll" : "Enroll"}
+                </button>
+            )}
                                     </div>
                                 </Link>
                             </div>
